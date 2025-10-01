@@ -1,0 +1,1 @@
+{ "name": "eslint-plugin-baseline-check-example", "version": "1.0.0", "description": "Example for ESLint Baseline Check Plugin", "main": "example.js", "dependencies": { "eslint": "^8.50.0", "eslint-plugin-baseline-check": "file:.." } }

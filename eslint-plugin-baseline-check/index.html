@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESLint Baseline Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+            font-family: monospace;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            display: none;
+        }
+        .error {
+            color: red;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ESLint Baseline Feature Checker</h1>
+    <p>Enter your JavaScript code below to check for non-Baseline features:</p>
+    
+    <textarea id="code-input">// Try this code:
+
+// This is fine (Baseline features)
+document.querySelector('.element');
+localStorage.setItem('key', 'value');
+
+// These will cause warnings (non-Baseline features)
+navigator.share({ title: 'Share me' });
+new Intl.DurationFormat('en').format({ hours: 2 });
+navigator.clipboard.writeText('Copied text');</textarea>
+    
+    <button onclick="checkCode()">Check Code</button>
+    
+    <div id="results"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/eslint@8.50.0/dist/eslint.min.js"></script>
+    <script>
+        // This is just a simplified demo - actual implementation would need to include your ESLint plugin
+        function checkCode() {
+            const code = document.getElementById('code-input').value;
+            const results = document.getElementById('results');
+            results.style.display = 'block';
+            
+            // Simulate ESLint check with hardcoded results for demo
+            let errors = [];
+            
+            if (code.includes('navigator.share')) {
+                errors.push('"navigator.share" is not supported in Baseline browsers');
+            }
+            
+            if (code.includes('Intl.DurationFormat')) {
+                errors.push('"Intl.DurationFormat" is not supported in Baseline browsers');
+            }
+            
+            if (code.includes('navigator.clipboard.writeText')) {
+                errors.push('"navigator.clipboard.writeText" is not supported in Baseline browsers');
+            }
+            
+            // Display results
+            if (errors.length > 0) {
+                results.innerHTML = '<h3>Issues Found:</h3>';
+                errors.forEach(error => {
+                    results.innerHTML += `<div class="error">⚠️ ${error}</div>`;
+                });
+            } else {
+                results.innerHTML = '<h3>No issues found! Your code uses only Baseline features.</h3>';
+            }
+        }
+    </script>
+</body>
+</html>
